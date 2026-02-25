@@ -180,13 +180,24 @@ fun SetupScreen(onSetupComplete: () -> Unit) {
                         when (provider) {
                             "anthropic" -> "claude-sonnet-4-20250514"
                             "openai" -> "gpt-4o"
-                            "ollama" -> "llama3.1"
+                            "ollama" -> "llama3.2"
                             else -> ""
                         },
                     )
                 },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
+                supportingText = if (provider == "ollama") {
+                    {
+                        Text(
+                            text = "Supported: llama3.2, deepseek-r1, qwen2.5, mistral, " +
+                                "gemma3, phi3, smollm2, tinyllama",
+                            style = MaterialTheme.typography.bodySmall,
+                        )
+                    }
+                } else {
+                    null
+                },
             )
 
             // Agent name
