@@ -1,0 +1,62 @@
+package com.omegcrash.familiar.data
+
+import android.content.Context
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+
+private val Context.dataStore by preferencesDataStore(name = "familiar_settings")
+
+class PreferencesStore(private val context: Context) {
+
+    companion object {
+        val API_PROVIDER = stringPreferencesKey("api_provider")
+        val API_KEY = stringPreferencesKey("api_key")
+        val OLLAMA_URL = stringPreferencesKey("ollama_url")
+        val AGENT_NAME = stringPreferencesKey("agent_name")
+        val MODEL_NAME = stringPreferencesKey("model_name")
+        val SETUP_COMPLETE = stringPreferencesKey("setup_complete")
+    }
+
+    val isSetupComplete: Flow<Boolean> = context.dataStore.data.map { prefs ->
+        prefs[SETUP_COMPLETE] == "true"
+    }
+
+    fun getEnvVars(): Flow<Map<String, String>> = context.dataStore.data.map { prefs ->
+        buildMap {
+            prefs[API_PROVIDER]?.let { put("FAMILIAR_LLM_PROVIDER", it) }
+            prefs[API_KEY]?.let { provider ->
+                when (prefs[API_PROVIDER]) {
+                    "anthropic" -> put("ANTHROPIC_API_KEY", provider)
+                    "openai" -> put("OPENAI_API_KEY", provider)
+                }
+            }
+            prefs[OLLAMA_URL]?.let { put("OLLAMA_URL", it) }
+            prefs[AGENT_NAME]?.let { put("FAMILIAR_AGENT_NAME", it) }
+            prefs[MODEL_NAME]?.let { put("FAMILIAR_MODEL", it) }
+        }
+    }
+
+    suspend fun saveSetup(
+        provider: String,
+        apiKey: String,
+        ollamaUrl: String,
+        agentName: String,
+        modelName: String,
+    ) {
+        context.dataStore.edit { prefs ->
+            prefs[API_PROVIDER] = provider
+            prefs[API_KEY] = apiKey
+            prefs[OLLAMA_URL] = ollamaUrl
+            prefs[AGENT_NAME] = agentName
+            prefs[MODEL_NAME] = modelName
+            prefs[SETUP_COMPLETE] = "true"
+        }
+    }
+
+    suspend fun clearAll() {
+        context.dataStore.edit { it.clear() }
+    }
+}

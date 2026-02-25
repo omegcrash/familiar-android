@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Familiar</string>
+
+    <!-- Notification channels -->
+    <string name="channel_service">Background Service</string>
+    <string name="channel_service_desc">Persistent notification while Familiar is running</string>
+    <string name="channel_briefings">Briefings</string>
+    <string name="channel_briefings_desc">Proactive updates and scheduled briefings</string>
+
+    <!-- Notifications -->
+    <string name="notification_title">Familiar is running</string>
+    <string name="notification_text">Your AI agent is active</string>
+</resources>

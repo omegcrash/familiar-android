@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Back up preferences (API keys, config) -->
+    <include domain="sharedpref" path="." />
+    <!-- Back up Familiar data (memory, history, skills) -->
+    <include domain="file" path=".familiar/" />
+    <!-- Exclude caches and logs -->
+    <exclude domain="file" path=".familiar/logs/" />
+    <exclude domain="cache" path="." />
+</full-backup-content>
