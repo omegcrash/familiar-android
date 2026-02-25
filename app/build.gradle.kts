@@ -13,8 +13,8 @@ android {
         applicationId = "com.omegcrash.familiar"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -25,7 +25,7 @@ android {
         python {
             version = "3.11"
             pip {
-                install("familiar-agent[llm,mesh]")
+                install("familiar-agent[llm,mesh]>=1.5.0")
                 // Exclude packages that don't work on Android
                 options("--exclude", "playwright")
             }
