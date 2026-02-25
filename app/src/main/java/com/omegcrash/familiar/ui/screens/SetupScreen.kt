@@ -1,5 +1,7 @@
 package com.omegcrash.familiar.ui.screens
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -11,12 +13,15 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuAnchorType
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -121,8 +126,41 @@ fun SetupScreen(onSetupComplete: () -> Unit) {
                 )
             }
 
-            // Ollama URL
+            // Ollama setup
             if (provider == "ollama") {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    ),
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(
+                            text = "Run Ollama locally",
+                            style = MaterialTheme.typography.titleSmall,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer,
+                        )
+                        Text(
+                            text = "Install Termux from F-Droid, then run:\npkg install ollama && ollama serve",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer,
+                            modifier = Modifier.padding(top = 4.dp),
+                        )
+                        OutlinedButton(
+                            onClick = {
+                                val intent = Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://f-droid.org/packages/com.termux/"),
+                                )
+                                context.startActivity(intent)
+                            },
+                            modifier = Modifier.padding(top = 8.dp),
+                        ) {
+                            Text("Get Termux from F-Droid")
+                        }
+                    }
+                }
+
                 OutlinedTextField(
                     value = ollamaUrl,
                     onValueChange = { ollamaUrl = it },
