@@ -21,15 +21,6 @@ android {
         ndk {
             abiFilters += listOf("arm64-v8a", "x86_64")
         }
-
-        python {
-            version = "3.11"
-            pip {
-                install("familiar-agent[llm,mesh]>=1.5.0")
-                // Exclude packages that don't work on Android
-                options("--exclude", "playwright")
-            }
-        }
     }
 
     buildTypes {
@@ -59,6 +50,17 @@ android {
 
     buildFeatures {
         compose = true
+    }
+}
+
+chaquopy {
+    defaultConfig {
+        version = "3.11"
+        pip {
+            install("familiar-agent[llm,mesh]>=1.5.0")
+            // Exclude packages that don't work on Android
+            options("--exclude", "playwright")
+        }
     }
 }
 

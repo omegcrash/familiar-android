@@ -56,7 +56,7 @@ class FamiliarService : Service() {
 
                 pythonThread = Thread({
                     try {
-                        PythonBridge.start(dataDir, envVars)
+                        PythonBridge.start(this@FamiliarService, dataDir, envVars)
                     } catch (e: Exception) {
                         _state.value = ServiceState.Error(e.message ?: "Python crashed")
                     }

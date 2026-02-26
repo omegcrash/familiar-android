@@ -1,5 +1,6 @@
 package com.omegcrash.familiar.python
 
+import android.content.Context
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
 
@@ -8,15 +9,15 @@ object PythonBridge {
     private var initialized = false
 
     @Synchronized
-    fun ensureInitialized() {
+    fun ensureInitialized(context: Context) {
         if (!initialized && !Python.isStarted()) {
-            Python.start(AndroidPlatform())
+            Python.start(AndroidPlatform(context))
             initialized = true
         }
     }
 
-    fun start(dataDir: String, envVars: Map<String, String>) {
-        ensureInitialized()
+    fun start(context: Context, dataDir: String, envVars: Map<String, String>) {
+        ensureInitialized(context)
         val py = Python.getInstance()
         val module = py.getModule("start_familiar")
         val pyEnvVars = py.builtins.callAttr("dict")
@@ -26,8 +27,8 @@ object PythonBridge {
         module.callAttr("start", dataDir, pyEnvVars)
     }
 
-    fun stop() {
-        ensureInitialized()
+    fun stop(context: Context) {
+        ensureInitialized(context)
         val py = Python.getInstance()
         val module = py.getModule("start_familiar")
         try {
