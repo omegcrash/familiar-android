@@ -13,8 +13,8 @@ android {
         applicationId = "com.omegcrash.familiar"
         minSdk = 26
         targetSdk = 35
-        versionCode = 2
-        versionName = "1.1.0"
+        versionCode = 3
+        versionName = "1.1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -57,7 +57,7 @@ chaquopy {
     defaultConfig {
         version = "3.11"
         pip {
-            install("familiar-agent[llm,mesh]>=1.5.0")
+            install("familiar-agent[llm,mesh]>=1.8.1")
             // Exclude packages that don't work on Android
             options("--exclude", "playwright")
         }
