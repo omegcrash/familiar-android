@@ -33,6 +33,11 @@ add the version it landed in.
 ## Version Status
 
 ### Current: v1.1.1
+Bumped `familiar-agent[llm,mesh]>=1.8.5` for onboarding UX fixes (interactive
+email menu, calendar test button fix, Proton VPN buttons) and contextual error
+handling across all self-hosted skills.
+
+### Previous: v1.1.1 (with familiar-agent 1.8.4)
 Bumped `familiar-agent[llm,mesh]>=1.8.4` for improved LLM tool selection guidance
 in self-hosted skills.
 
@@ -134,7 +139,7 @@ Familiar for Android v1.1.1 — Privacy-First Mobile AI Agent
 │   │           └── ToolCallCard.kt  — Expandable skill execution card (69 lines)
 │   ├── python/
 │   │   ├── start_familiar.py        — Agent + Flask bootstrap (42 lines)
-│   │   └── requirements.txt         — familiar-agent[llm,mesh]>=1.8.4
+│   │   └── requirements.txt         — familiar-agent[llm,mesh]>=1.8.5
 │   └── res/
 │       ├── drawable/ic_familiar.xml  — Adaptive icon ("F" letterform)
 │       ├── values/strings.xml        — String resources
