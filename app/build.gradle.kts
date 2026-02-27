@@ -57,7 +57,7 @@ chaquopy {
     defaultConfig {
         version = "3.11"
         pip {
-            install("familiar-agent[llm,mesh]>=1.8.1")
+            install("familiar-agent[llm,mesh]>=1.8.4")
             // Exclude packages that don't work on Android
             options("--exclude", "playwright")
         }

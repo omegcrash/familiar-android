@@ -1,1 +1,1 @@
-familiar-agent[llm,mesh]>=1.5.0
+familiar-agent[llm,mesh]>=1.8.4
