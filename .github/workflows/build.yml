@@ -17,10 +17,7 @@ jobs:
           distribution: temurin
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
-
-      # Kotlin compilation check only — skip Chaquopy pip resolution
-      # which requires native wheels (cryptography) unavailable in CI.
-      - run: ./gradlew compileDebugKotlin
+      - run: ./gradlew lint
 
   build-debug:
     runs-on: ubuntu-latest
@@ -32,9 +29,7 @@ jobs:
           distribution: temurin
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
-
-      # Skip Chaquopy Python packaging — native deps can't build in CI
-      - run: ./gradlew assembleDebug -x generateDebugPythonRequirements -x extractDebugPythonBuildPackages
+      - run: ./gradlew assembleDebug
       - uses: actions/upload-artifact@v4
         with:
           name: debug-apk
@@ -62,7 +57,7 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: ./gradlew assembleRelease -x generateReleasePythonRequirements -x extractReleasePythonBuildPackages
+        run: ./gradlew assembleRelease
 
       - uses: actions/upload-artifact@v4
         with:
