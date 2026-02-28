@@ -32,7 +32,13 @@ add the version it landed in.
 
 ## Version Status
 
-### Current: v1.1.1
+### Current: v1.1.1 (with familiar-agent 1.8.6)
+Bumped `familiar-agent[llm,mesh]>=1.8.6` for Security category in /connect
+wizard: Vaultwarden (URL+token+test), Encryption, PHI Detection, RBAC, and
+User Management onboarding wizards. Also includes contextual error handling
+via `format_http_error` in the Vaultwarden skill.
+
+### Previous: v1.1.1 (with familiar-agent 1.8.5)
 Bumped `familiar-agent[llm,mesh]>=1.8.5` for onboarding UX fixes (interactive
 email menu, calendar test button fix, Proton VPN buttons) and contextual error
 handling across all self-hosted skills.
@@ -139,7 +145,7 @@ Familiar for Android v1.1.1 — Privacy-First Mobile AI Agent
 │   │           └── ToolCallCard.kt  — Expandable skill execution card (69 lines)
 │   ├── python/
 │   │   ├── start_familiar.py        — Agent + Flask bootstrap (42 lines)
-│   │   └── requirements.txt         — familiar-agent[llm,mesh]>=1.8.5
+│   │   └── requirements.txt         — familiar-agent[llm,mesh]>=1.8.6
 │   └── res/
 │       ├── drawable/ic_familiar.xml  — Adaptive icon ("F" letterform)
 │       ├── values/strings.xml        — String resources
