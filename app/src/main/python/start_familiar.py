@@ -21,6 +21,16 @@ def start(data_dir: str, env_vars: dict):
     for k, v in env_vars.items():
         os.environ[k] = str(v)
 
+    # Hash raw owner PIN if provided (same algorithm as onboard_engine.py)
+    raw_pin = os.environ.pop("FAMILIAR_OWNER_PIN_RAW", "")
+    if raw_pin:
+        import hashlib
+        salt = secrets.token_hex(16)
+        pin_hash = hashlib.pbkdf2_hmac(
+            "sha256", raw_pin.encode(), salt.encode(), 100_000
+        ).hex()
+        os.environ["OWNER_PIN_HASH"] = f"{salt}:{pin_hash}"
+
     # Generate dashboard API key so Kotlin can authenticate
     api_key = secrets.token_urlsafe(32)
     os.environ["FAMILIAR_DASHBOARD_KEY"] = api_key

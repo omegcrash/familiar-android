@@ -98,7 +98,9 @@ fun NavGraph(serviceState: ServiceState) {
             composable(Routes.SETUP) {
                 SetupScreen(
                     onSetupComplete = {
-                        navController.navigate(Routes.CHAT) {
+                        navController.navigate(
+                            "${Routes.CHAT}?prefill=Hello! I just finished setting up."
+                        ) {
                             popUpTo(Routes.SETUP) { inclusive = true }
                         }
                     },

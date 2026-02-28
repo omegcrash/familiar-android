@@ -26,6 +26,7 @@ import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -43,6 +44,12 @@ import com.omegcrash.familiar.data.PreferencesStore
 import kotlinx.coroutines.launch
 
 private val PROVIDERS = listOf("anthropic", "openai", "gemini", "ollama")
+private val PERSONAS = listOf(
+    "hospitality" to "Warm & professional",
+    "efficient" to "Efficient & concise",
+    "friendly" to "Casual & friendly",
+    "formal" to "Formal & thorough",
+)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -59,6 +66,10 @@ fun SetupScreen(onSetupComplete: () -> Unit) {
     var ollamaUrl by remember { mutableStateOf("http://localhost:11434") }
     var agentName by remember { mutableStateOf("Familiar") }
     var modelName by remember { mutableStateOf("") }
+    var persona by remember { mutableStateOf("hospitality") }
+    var personaExpanded by remember { mutableStateOf(false) }
+    var ownerPin by remember { mutableStateOf("") }
+    var briefingEnabled by remember { mutableStateOf(true) }
     var providerExpanded by remember { mutableStateOf(false) }
     val isRemote = connectionMode == "remote"
 
@@ -291,6 +302,81 @@ fun SetupScreen(onSetupComplete: () -> Unit) {
                 singleLine = true,
             )
 
+            // Persona selector
+            ExposedDropdownMenuBox(
+                expanded = personaExpanded,
+                onExpandedChange = { personaExpanded = it },
+            ) {
+                OutlinedTextField(
+                    value = PERSONAS.firstOrNull { it.first == persona }?.second ?: persona,
+                    onValueChange = {},
+                    readOnly = true,
+                    label = { Text("Persona") },
+                    trailingIcon = {
+                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = personaExpanded)
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .menuAnchor(MenuAnchorType.PrimaryNotEditable),
+                )
+                ExposedDropdownMenu(
+                    expanded = personaExpanded,
+                    onDismissRequest = { personaExpanded = false },
+                ) {
+                    PERSONAS.forEach { (key, label) ->
+                        DropdownMenuItem(
+                            text = { Text(label) },
+                            onClick = {
+                                persona = key
+                                personaExpanded = false
+                            },
+                        )
+                    }
+                }
+            }
+
+            // Owner PIN
+            OutlinedTextField(
+                value = ownerPin,
+                onValueChange = { newValue ->
+                    if (newValue.all { it.isDigit() } && newValue.length <= 8) {
+                        ownerPin = newValue
+                    }
+                },
+                label = { Text("Owner PIN (4-8 digits)") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
+                supportingText = {
+                    Text(
+                        text = "Send this PIN as your first message to claim ownership of the bot.",
+                        style = MaterialTheme.typography.bodySmall,
+                    )
+                },
+            )
+
+            // Morning briefing toggle
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = "Morning Briefing",
+                        style = MaterialTheme.typography.titleSmall,
+                    )
+                    Text(
+                        text = "Daily summary of tasks and calendar",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+                Switch(
+                    checked = briefingEnabled,
+                    onCheckedChange = { briefingEnabled = it },
+                )
+            }
+
             Spacer(modifier = Modifier.height(8.dp))
 
             Button(
@@ -305,6 +391,9 @@ fun SetupScreen(onSetupComplete: () -> Unit) {
                             connectionMode = connectionMode,
                             serverUrl = serverUrl,
                             remoteApiKey = remoteApiKey,
+                            persona = persona,
+                            ownerPin = ownerPin,
+                            briefingEnabled = briefingEnabled,
                         )
                         onSetupComplete()
                     }

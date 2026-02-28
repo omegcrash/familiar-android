@@ -21,6 +21,9 @@ class PreferencesStore(private val context: Context) {
         val CONNECTION_MODE = stringPreferencesKey("connection_mode") // "local" or "remote"
         val SERVER_URL = stringPreferencesKey("server_url")
         val REMOTE_API_KEY = stringPreferencesKey("remote_api_key")
+        val PERSONA = stringPreferencesKey("persona")
+        val OWNER_PIN = stringPreferencesKey("owner_pin")
+        val BRIEFING_ENABLED = stringPreferencesKey("briefing_enabled")
     }
 
     val isSetupComplete: Flow<Boolean> = context.dataStore.data.map { prefs ->
@@ -52,6 +55,11 @@ class PreferencesStore(private val context: Context) {
             prefs[OLLAMA_URL]?.let { put("OLLAMA_URL", it) }
             prefs[AGENT_NAME]?.let { put("FAMILIAR_AGENT_NAME", it) }
             prefs[MODEL_NAME]?.let { put("FAMILIAR_MODEL", it) }
+            prefs[PERSONA]?.let { put("FAMILIAR_PERSONA", it) }
+            prefs[OWNER_PIN]?.takeIf { it.isNotBlank() }?.let {
+                put("FAMILIAR_OWNER_PIN_RAW", it)
+            }
+            prefs[BRIEFING_ENABLED]?.let { put("FAMILIAR_BRIEFING_ENABLED", it) }
         }
     }
 
@@ -64,6 +72,9 @@ class PreferencesStore(private val context: Context) {
         connectionMode: String = "local",
         serverUrl: String = "",
         remoteApiKey: String = "",
+        persona: String = "hospitality",
+        ownerPin: String = "",
+        briefingEnabled: Boolean = true,
     ) {
         context.dataStore.edit { prefs ->
             prefs[API_PROVIDER] = provider
@@ -74,6 +85,9 @@ class PreferencesStore(private val context: Context) {
             prefs[CONNECTION_MODE] = connectionMode
             prefs[SERVER_URL] = serverUrl
             prefs[REMOTE_API_KEY] = remoteApiKey
+            prefs[PERSONA] = persona
+            prefs[OWNER_PIN] = ownerPin
+            prefs[BRIEFING_ENABLED] = if (briefingEnabled) "true" else "false"
             prefs[SETUP_COMPLETE] = "true"
         }
     }
