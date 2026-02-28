@@ -7,6 +7,7 @@ of the default ~/.familiar directory.
 
 import os
 import pathlib
+import secrets
 
 
 def start(data_dir: str, env_vars: dict):
@@ -20,10 +21,18 @@ def start(data_dir: str, env_vars: dict):
     for k, v in env_vars.items():
         os.environ[k] = str(v)
 
+    # Generate dashboard API key so Kotlin can authenticate
+    api_key = secrets.token_urlsafe(32)
+    os.environ["FAMILIAR_DASHBOARD_KEY"] = api_key
+    data_path = pathlib.Path(data_dir)
+    data_path.mkdir(parents=True, exist_ok=True)
+    key_path = data_path / ".dashboard_key"
+    key_path.write_text(api_key)
+
     # Redirect Familiar data to app-private storage
     from familiar.core import paths
 
-    paths.set_data_root(pathlib.Path(data_dir) / ".familiar")
+    paths.set_data_root(data_path / ".familiar")
     paths.ensure_core_dirs()
 
     # Import and start the agent + dashboard

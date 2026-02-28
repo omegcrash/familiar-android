@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import java.io.File
 
 class FamiliarService : Service() {
 
@@ -23,6 +24,8 @@ class FamiliarService : Service() {
         private val _state = MutableStateFlow<ServiceState>(ServiceState.Idle)
         val state: StateFlow<ServiceState> = _state.asStateFlow()
         private const val NOTIFICATION_ID = 1
+        var dashboardApiKey: String = ""
+            private set
     }
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -64,8 +67,19 @@ class FamiliarService : Service() {
 
                 pythonThread?.start()
 
+                // Poll for dashboard API key file (written by Python before Flask binds)
+                val keyFile = File(filesDir, ".familiar/.dashboard_key")
+                var waited = 0L
+                while (!keyFile.exists() && waited < 10_000) {
+                    Thread.sleep(500)
+                    waited += 500
+                }
+                if (keyFile.exists()) {
+                    dashboardApiKey = keyFile.readText().trim()
+                }
+
                 // Give Flask a moment to bind, then mark running
-                Thread.sleep(3000)
+                if (waited < 3000) Thread.sleep(3000 - waited)
                 if (_state.value is ServiceState.Starting) {
                     _state.value = ServiceState.Running(port = 5000)
                 }

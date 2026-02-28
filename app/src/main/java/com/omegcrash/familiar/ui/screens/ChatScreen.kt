@@ -11,9 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Send
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -37,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import com.omegcrash.familiar.R
 import com.omegcrash.familiar.data.ChatResponse
 import com.omegcrash.familiar.data.FamiliarClient
+import com.omegcrash.familiar.service.FamiliarService
 import com.omegcrash.familiar.service.ServiceState
 import com.omegcrash.familiar.ui.components.MessageBubble
 import com.omegcrash.familiar.ui.components.StatusBar
@@ -53,15 +52,23 @@ data class ChatMessage(
 @Composable
 fun ChatScreen(
     serviceState: ServiceState,
-    onNavigateToStatus: () -> Unit,
-    onNavigateToSettings: () -> Unit,
+    initialMessage: String = "",
 ) {
-    val client = remember { FamiliarClient() }
+    val client = remember {
+        FamiliarClient(apiKey = FamiliarService.dashboardApiKey)
+    }
     val messages = remember { mutableStateListOf<ChatMessage>() }
     var input by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) }
     val listState = rememberLazyListState()
     val scope = rememberCoroutineScope()
+
+    // Pre-fill input from navigation argument (e.g. /connect command from ServicesScreen)
+    LaunchedEffect(initialMessage) {
+        if (initialMessage.isNotBlank()) {
+            input = initialMessage
+        }
+    }
 
     // Auto-scroll to bottom on new messages
     LaunchedEffect(messages.size) {
@@ -74,14 +81,6 @@ fun ChatScreen(
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.app_name)) },
-                actions = {
-                    IconButton(onClick = onNavigateToStatus) {
-                        Icon(Icons.Default.Info, contentDescription = "Status")
-                    }
-                    IconButton(onClick = onNavigateToSettings) {
-                        Icon(Icons.Default.Settings, contentDescription = "Settings")
-                    }
-                },
             )
         },
     ) { padding ->
@@ -114,6 +113,7 @@ fun ChatScreen(
                                 skillName = call.skill,
                                 args = call.args,
                                 result = call.result,
+                                category = call.category,
                             )
                         }
                     }
