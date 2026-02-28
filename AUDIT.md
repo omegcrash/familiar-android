@@ -1,7 +1,7 @@
 # Familiar for Android — Living Audit Document
 
 **Last updated:** 2026-02-27
-**Current version:** 1.1.1 (versionCode 3)
+**Current version:** 1.1.2 (versionCode 4)
 **Maintained by:** George Scott Foley
 
 This document is the single source of truth for known issues, intentional stubs,
@@ -32,13 +32,13 @@ add the version it landed in.
 
 ## Version Status
 
-### Current: v1.1.1 (with familiar-agent 1.8.6)
+### Current: v1.1.2
 Bumped `familiar-agent[llm,mesh]>=1.8.6` for Security category in /connect
 wizard: Vaultwarden (URL+token+test), Encryption, PHI Detection, RBAC, and
 User Management onboarding wizards. Also includes contextual error handling
 via `format_http_error` in the Vaultwarden skill.
 
-### Previous: v1.1.1 (with familiar-agent 1.8.5)
+### Previous: v1.1.1
 Bumped `familiar-agent[llm,mesh]>=1.8.5` for onboarding UX fixes (interactive
 email menu, calendar test button fix, Proton VPN buttons) and contextual error
 handling across all self-hosted skills.
@@ -61,7 +61,7 @@ Chaquopy Python bridge, first-run setup wizard, and CI/CD pipeline.
 
 ### Settings: Hardcoded Version String
 **File:** `app/src/main/java/com/omegcrash/familiar/ui/screens/SettingsScreen.kt` L96
-**Bug:** Displays "Familiar for Android v1.0.0" — should be "v1.1.1" (or read from
+**Bug:** Displays "Familiar for Android v1.0.0" — should be "v1.1.2" (or read from
 `BuildConfig.VERSION_NAME` to stay in sync with `build.gradle.kts`).
 **Priority:** Low — cosmetic only.
 
@@ -114,7 +114,7 @@ sufficient for the current codebase size.
 ## Architecture Overview
 
 ```
-Familiar for Android v1.1.1 — Privacy-First Mobile AI Agent
+Familiar for Android v1.1.2 — Privacy-First Mobile AI Agent
 ├── app/src/main/
 │   ├── AndroidManifest.xml          — 6 permissions, foreground svc, boot receiver
 │   ├── java/com/omegcrash/familiar/
