@@ -57,6 +57,7 @@ chaquopy {
     defaultConfig {
         version = "3.11"
         pip {
+            options("--extra-index-url", "https://pypi.org/simple/")
             install("familiar-agent[llm,mesh]>=1.9.0")
         }
     }
