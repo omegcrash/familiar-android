@@ -32,7 +32,12 @@ add the version it landed in.
 
 ## Version Status
 
-### Current: v1.1.2 (with familiar-agent 1.8.7)
+### Current: v1.1.2 (with familiar-agent 1.8.8)
+Bumped `familiar-agent[llm,mesh]>=1.8.8` for:
+- **Email account dedup fix**: `add_account()` now deduplicates by email address,
+  preventing duplicate entries when the same address is added with different IDs.
+
+### Previous: v1.1.2 (with familiar-agent 1.8.7)
 Bumped `familiar-agent[llm,mesh]>=1.8.7` for:
 - **DDG search snippet fix**: HTML parser was truncating snippets to a few words
   due to `<b>` tags inside `<a class="result__snippet">` triggering early capture
@@ -159,7 +164,7 @@ Familiar for Android v1.1.2 — Privacy-First Mobile AI Agent
 │   │           └── ToolCallCard.kt  — Expandable skill execution card (69 lines)
 │   ├── python/
 │   │   ├── start_familiar.py        — Agent + Flask bootstrap (42 lines)
-│   │   └── requirements.txt         — familiar-agent[llm,mesh]>=1.8.7
+│   │   └── requirements.txt         — familiar-agent[llm,mesh]>=1.8.8
 │   └── res/
 │       ├── drawable/ic_familiar.xml  — Adaptive icon ("F" letterform)
 │       ├── values/strings.xml        — String resources
