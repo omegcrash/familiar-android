@@ -27,10 +27,11 @@ class PreferencesStore(private val context: Context) {
     fun getEnvVars(): Flow<Map<String, String>> = context.dataStore.data.map { prefs ->
         buildMap {
             prefs[API_PROVIDER]?.let { put("FAMILIAR_LLM_PROVIDER", it) }
-            prefs[API_KEY]?.let { provider ->
+            prefs[API_KEY]?.let { apiKey ->
                 when (prefs[API_PROVIDER]) {
-                    "anthropic" -> put("ANTHROPIC_API_KEY", provider)
-                    "openai" -> put("OPENAI_API_KEY", provider)
+                    "anthropic" -> put("ANTHROPIC_API_KEY", apiKey)
+                    "openai" -> put("OPENAI_API_KEY", apiKey)
+                    "gemini" -> put("GEMINI_API_KEY", apiKey)
                 }
             }
             prefs[OLLAMA_URL]?.let { put("OLLAMA_URL", it) }

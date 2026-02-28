@@ -40,7 +40,7 @@ import androidx.compose.ui.unit.dp
 import com.omegcrash.familiar.data.PreferencesStore
 import kotlinx.coroutines.launch
 
-private val PROVIDERS = listOf("anthropic", "openai", "ollama")
+private val PROVIDERS = listOf("anthropic", "openai", "gemini", "ollama")
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -180,6 +180,7 @@ fun SetupScreen(onSetupComplete: () -> Unit) {
                         when (provider) {
                             "anthropic" -> "claude-sonnet-4-20250514"
                             "openai" -> "gpt-4o"
+                            "gemini" -> "gemini-2.0-flash"
                             "ollama" -> "llama3.2"
                             else -> ""
                         },
