@@ -1,7 +1,7 @@
 # Familiar for Android — Living Audit Document
 
 **Last updated:** 2026-02-27
-**Current version:** 1.1.2 (versionCode 4)
+**Current version:** 1.1.3 (versionCode 5)
 **Maintained by:** George Scott Foley
 
 This document is the single source of truth for known issues, intentional stubs,
@@ -32,7 +32,7 @@ add the version it landed in.
 
 ## Version Status
 
-### Current: v1.1.2 (with familiar-agent 1.8.9)
+### Current: v1.1.3 (with familiar-agent 1.8.9)
 Bumped `familiar-agent[llm,mesh]>=1.8.9` for:
 - **Interactive /connect wizards**: All 15 remaining services upgraded to guided
   multi-step flows on button-capable channels (Telegram, Discord, Teams). Self-hosted
