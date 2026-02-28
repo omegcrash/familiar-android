@@ -59,7 +59,7 @@ chaquopy {
         pip {
             options("--extra-index-url", "https://pypi.org/simple/")
             options("--only-binary", ":all:")
-            install("familiar-agent[llm,mesh]>=1.10.2")
+            install("familiar-agent[llm,mesh]>=1.13.1")
         }
     }
 }
