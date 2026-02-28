@@ -18,10 +18,25 @@ class PreferencesStore(private val context: Context) {
         val AGENT_NAME = stringPreferencesKey("agent_name")
         val MODEL_NAME = stringPreferencesKey("model_name")
         val SETUP_COMPLETE = stringPreferencesKey("setup_complete")
+        val CONNECTION_MODE = stringPreferencesKey("connection_mode") // "local" or "remote"
+        val SERVER_URL = stringPreferencesKey("server_url")
+        val REMOTE_API_KEY = stringPreferencesKey("remote_api_key")
     }
 
     val isSetupComplete: Flow<Boolean> = context.dataStore.data.map { prefs ->
         prefs[SETUP_COMPLETE] == "true"
+    }
+
+    val connectionMode: Flow<String> = context.dataStore.data.map { prefs ->
+        prefs[CONNECTION_MODE] ?: "local"
+    }
+
+    val serverUrl: Flow<String> = context.dataStore.data.map { prefs ->
+        prefs[SERVER_URL] ?: "http://127.0.0.1:5000"
+    }
+
+    val remoteApiKey: Flow<String> = context.dataStore.data.map { prefs ->
+        prefs[REMOTE_API_KEY] ?: ""
     }
 
     fun getEnvVars(): Flow<Map<String, String>> = context.dataStore.data.map { prefs ->
@@ -46,6 +61,9 @@ class PreferencesStore(private val context: Context) {
         ollamaUrl: String,
         agentName: String,
         modelName: String,
+        connectionMode: String = "local",
+        serverUrl: String = "",
+        remoteApiKey: String = "",
     ) {
         context.dataStore.edit { prefs ->
             prefs[API_PROVIDER] = provider
@@ -53,6 +71,9 @@ class PreferencesStore(private val context: Context) {
             prefs[OLLAMA_URL] = ollamaUrl
             prefs[AGENT_NAME] = agentName
             prefs[MODEL_NAME] = modelName
+            prefs[CONNECTION_MODE] = connectionMode
+            prefs[SERVER_URL] = serverUrl
+            prefs[REMOTE_API_KEY] = remoteApiKey
             prefs[SETUP_COMPLETE] = "true"
         }
     }

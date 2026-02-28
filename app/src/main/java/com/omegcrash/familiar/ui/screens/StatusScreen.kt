@@ -41,7 +41,10 @@ import kotlinx.coroutines.launch
 @Composable
 fun StatusScreen(serviceState: ServiceState) {
     val client = remember {
-        FamiliarClient(apiKey = FamiliarService.dashboardApiKey)
+        FamiliarClient(
+            baseUrl = FamiliarService.baseUrl,
+            apiKey = FamiliarService.dashboardApiKey,
+        )
     }
     var agentStatus by remember { mutableStateOf<JsonObject?>(null) }
     var config by remember { mutableStateOf<AgentConfig?>(null) }

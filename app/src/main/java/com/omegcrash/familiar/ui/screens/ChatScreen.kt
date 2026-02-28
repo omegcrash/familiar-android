@@ -55,7 +55,10 @@ fun ChatScreen(
     initialMessage: String = "",
 ) {
     val client = remember {
-        FamiliarClient(apiKey = FamiliarService.dashboardApiKey)
+        FamiliarClient(
+            baseUrl = FamiliarService.baseUrl,
+            apiKey = FamiliarService.dashboardApiKey,
+        )
     }
     val messages = remember { mutableStateListOf<ChatMessage>() }
     var input by remember { mutableStateOf("") }

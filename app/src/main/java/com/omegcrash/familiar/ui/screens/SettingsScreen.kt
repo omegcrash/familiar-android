@@ -36,6 +36,8 @@ fun SettingsScreen() {
     val prefs = remember { PreferencesStore(context) }
     val scope = rememberCoroutineScope()
     val envVars by prefs.getEnvVars().collectAsState(initial = emptyMap())
+    val connectionMode by prefs.connectionMode.collectAsState(initial = "local")
+    val serverUrl by prefs.serverUrl.collectAsState(initial = "")
     var showResetDialog by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -57,6 +59,13 @@ fun SettingsScreen() {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text("Current Configuration", style = MaterialTheme.typography.titleMedium)
                     Spacer(modifier = Modifier.height(8.dp))
+
+                    val modeLabel = if (connectionMode == "remote") "Remote" else "Local"
+                    Text("Mode: $modeLabel")
+
+                    if (connectionMode == "remote" && serverUrl.isNotBlank()) {
+                        Text("Server: $serverUrl")
+                    }
 
                     val provider = envVars["FAMILIAR_LLM_PROVIDER"] ?: "Not set"
                     Text("Provider: ${provider.replaceFirstChar { it.uppercase() }}")
@@ -84,7 +93,7 @@ fun SettingsScreen() {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text("About", style = MaterialTheme.typography.titleMedium)
                     Spacer(modifier = Modifier.height(8.dp))
-                    Text("Familiar for Android v1.0.0")
+                    Text("Familiar for Android v1.3.0")
                     Text("Self-hosted AI companion")
                     Text(
                         text = "Your data stays on this device.",

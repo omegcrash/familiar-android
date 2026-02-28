@@ -47,7 +47,10 @@ fun ServicesScreen(
     onNavigateToChat: (prefill: String) -> Unit,
 ) {
     val client = remember {
-        FamiliarClient(apiKey = FamiliarService.dashboardApiKey)
+        FamiliarClient(
+            baseUrl = FamiliarService.baseUrl,
+            apiKey = FamiliarService.dashboardApiKey,
+        )
     }
     var connectStatus by remember { mutableStateOf<ConnectStatus?>(null) }
     var isLoading by remember { mutableStateOf(true) }

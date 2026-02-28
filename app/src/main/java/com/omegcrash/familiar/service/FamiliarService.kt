@@ -26,6 +26,10 @@ class FamiliarService : Service() {
         private const val NOTIFICATION_ID = 1
         var dashboardApiKey: String = ""
             private set
+        var baseUrl: String = "http://127.0.0.1:5000"
+            private set
+        var isRemoteMode: Boolean = false
+            private set
     }
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -54,6 +58,20 @@ class FamiliarService : Service() {
         scope.launch {
             try {
                 val prefs = PreferencesStore(this@FamiliarService)
+                val mode = prefs.connectionMode.first()
+
+                if (mode == "remote") {
+                    // Remote mode: skip Python/Chaquopy, use user-provided server
+                    isRemoteMode = true
+                    baseUrl = prefs.serverUrl.first().trimEnd('/')
+                    dashboardApiKey = prefs.remoteApiKey.first()
+                    _state.value = ServiceState.Running(port = 0)
+                    return@launch
+                }
+
+                // Local mode: start Python via Chaquopy
+                isRemoteMode = false
+                baseUrl = "http://127.0.0.1:5000"
                 val envVars = prefs.getEnvVars().first()
                 val dataDir = filesDir.resolve(".familiar").absolutePath
 
