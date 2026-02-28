@@ -32,7 +32,13 @@ add the version it landed in.
 
 ## Version Status
 
-### Current: v1.1.3 (with familiar-agent 1.8.9)
+### Current: v1.2.0 (with familiar-agent 1.9.0)
+Bumped `familiar-agent[llm,mesh]>=1.9.0` for:
+- **Services screen & auth fix**: New `/api/connect/status` endpoint, bottom tab
+  navigation, structured Status screen with skill toggles, and dashboard API key
+  authentication.
+
+### Previous: v1.1.3 (with familiar-agent 1.8.9)
 Bumped `familiar-agent[llm,mesh]>=1.8.9` for:
 - **Interactive /connect wizards**: All 15 remaining services upgraded to guided
   multi-step flows on button-capable channels (Telegram, Discord, Teams). Self-hosted
@@ -173,7 +179,7 @@ Familiar for Android v1.1.2 — Privacy-First Mobile AI Agent
 │   │           └── ToolCallCard.kt  — Expandable skill execution card (69 lines)
 │   ├── python/
 │   │   ├── start_familiar.py        — Agent + Flask bootstrap (42 lines)
-│   │   └── requirements.txt         — familiar-agent[llm,mesh]>=1.8.9
+│   │   └── requirements.txt         — familiar-agent[llm,mesh]>=1.9.0
 │   └── res/
 │       ├── drawable/ic_familiar.xml  — Adaptive icon ("F" letterform)
 │       ├── values/strings.xml        — String resources
