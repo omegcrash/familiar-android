@@ -32,7 +32,21 @@ add the version it landed in.
 
 ## Version Status
 
-### Current: v1.1.2
+### Current: v1.1.2 (with familiar-agent 1.8.7)
+Bumped `familiar-agent[llm,mesh]>=1.8.7` for:
+- **DDG search snippet fix**: HTML parser was truncating snippets to a few words
+  due to `<b>` tags inside `<a class="result__snippet">` triggering early capture
+  termination. Snippets now return full sentences, significantly improving search
+  quality for all LLM providers.
+- **LLM test commands**: `/connect anthropic test`, `/connect openai test`,
+  `/connect gemini test`, `/connect ollama test` — verify API keys with real SDK
+  calls and classify errors (auth/quota/network).
+- **Email Server wizard**: `/connect email-server` — self-hosted mail server
+  onboarding (domain, relay config, port testing).
+- **WebSearch wizard**: `/connect websearch` — backend status, SearXNG setup,
+  DuckDuckGo reachability testing.
+
+### Previous: v1.1.2 (with familiar-agent 1.8.6)
 Bumped `familiar-agent[llm,mesh]>=1.8.6` for Security category in /connect
 wizard: Vaultwarden (URL+token+test), Encryption, PHI Detection, RBAC, and
 User Management onboarding wizards. Also includes contextual error handling
@@ -145,7 +159,7 @@ Familiar for Android v1.1.2 — Privacy-First Mobile AI Agent
 │   │           └── ToolCallCard.kt  — Expandable skill execution card (69 lines)
 │   ├── python/
 │   │   ├── start_familiar.py        — Agent + Flask bootstrap (42 lines)
-│   │   └── requirements.txt         — familiar-agent[llm,mesh]>=1.8.6
+│   │   └── requirements.txt         — familiar-agent[llm,mesh]>=1.8.7
 │   └── res/
 │       ├── drawable/ic_familiar.xml  — Adaptive icon ("F" letterform)
 │       ├── values/strings.xml        — String resources
