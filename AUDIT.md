@@ -32,7 +32,16 @@ add the version it landed in.
 
 ## Version Status
 
-### Current: v1.1.2 (with familiar-agent 1.8.8)
+### Current: v1.1.2 (with familiar-agent 1.8.9)
+Bumped `familiar-agent[llm,mesh]>=1.8.9` for:
+- **Interactive /connect wizards**: All 15 remaining services upgraded to guided
+  multi-step flows on button-capable channels (Telegram, Discord, Teams). Self-hosted
+  services (Jellyfin, Gitea, Home Assistant, Joplin, Pi-hole, Vaultwarden) get
+  step-by-step setup with URL validation and token message deletion. LLM providers
+  get interactive key-paste flow with prefix validation. Browser/Voice get install
+  action buttons. Security services get contextual action buttons.
+
+### Previous: v1.1.2 (with familiar-agent 1.8.8)
 Bumped `familiar-agent[llm,mesh]>=1.8.8` for:
 - **Email account dedup fix**: `add_account()` now deduplicates by email address,
   preventing duplicate entries when the same address is added with different IDs.
@@ -164,7 +173,7 @@ Familiar for Android v1.1.2 — Privacy-First Mobile AI Agent
 │   │           └── ToolCallCard.kt  — Expandable skill execution card (69 lines)
 │   ├── python/
 │   │   ├── start_familiar.py        — Agent + Flask bootstrap (42 lines)
-│   │   └── requirements.txt         — familiar-agent[llm,mesh]>=1.8.8
+│   │   └── requirements.txt         — familiar-agent[llm,mesh]>=1.8.9
 │   └── res/
 │       ├── drawable/ic_familiar.xml  — Adaptive icon ("F" letterform)
 │       ├── values/strings.xml        — String resources
