@@ -53,7 +53,7 @@ build.gradle.kts            # App-level build config
 
 - **Architecture**: Compose UI -> OkHttp -> localhost:5000 -> Flask dashboard -> Agent
 - **ABI filters**: arm64-v8a, x86_64 only
-- **Python dep**: `familiar-agent[llm,mesh]>=1.13.1` (installed via Chaquopy pip)
+- **Python dep**: `familiar-agent[llm,mesh]>=1.14.0` (installed via Chaquopy pip)
 - **Compose BOM**: 2024.12.01
 - **Kotlin**: 2.1.0, AGP 8.7.3
 - **Distribution**: GitHub Releases (no Google Play)
