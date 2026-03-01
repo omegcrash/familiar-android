@@ -1,6 +1,6 @@
 # Familiar Android — GrapheneOS Mobile App
 
-- **Package**: `com.omegcrash.familiar` v1.4.1 (versionCode 10)
+- **Package**: `com.omegcrash.familiar` v1.4.2 (versionCode 11)
 - **Language**: Kotlin + Jetpack Compose
 - **Min SDK**: 26 | **Target SDK**: 35 | **Compile SDK**: 35
 - **Java**: 17
