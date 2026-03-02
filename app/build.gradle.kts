@@ -13,8 +13,8 @@ android {
         applicationId = "com.omegcrash.familiar"
         minSdk = 26
         targetSdk = 35
-        versionCode = 11
-        versionName = "1.4.2"
+        versionCode = 12
+        versionName = "1.4.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -59,7 +59,7 @@ chaquopy {
         pip {
             options("--extra-index-url", "https://pypi.org/simple/")
             options("--only-binary", ":all:")
-            install("familiar-agent[llm,mesh]>=1.14.11")
+            install("familiar-agent[llm,mesh]>=1.14.13")
         }
     }
 }
