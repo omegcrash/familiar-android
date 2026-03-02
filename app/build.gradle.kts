@@ -58,8 +58,12 @@ chaquopy {
         version = "3.11"
         pip {
             options("--extra-index-url", "https://pypi.org/simple/")
-            options("--only-binary", ":all:")
-            install("familiar-agent[llm,mesh]>=1.14.24")
+            // Install familiar-agent without transitive deps — many have
+            // C/Rust extensions (pydantic-core, jiter, cryptography, pynacl)
+            // that Chaquopy can't cross-compile for Android ARM.
+            // Pure-Python deps are listed explicitly in requirements.txt.
+            options("--no-deps")
+            install("-r", "src/main/python/requirements.txt")
         }
     }
 }

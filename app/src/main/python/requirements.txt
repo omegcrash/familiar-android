@@ -1,1 +1,20 @@
-familiar-agent[llm,mesh]>=1.14.24
+# Chaquopy Android deps — installed with --no-deps (set in build.gradle.kts).
+# Packages with C/Rust extensions (pydantic-core, jiter, cryptography,
+# pynacl, zeroconf) are excluded since Chaquopy can't cross-compile them.
+
+# Familiar agent (no transitive deps pulled)
+familiar-agent>=1.14.27
+
+# Pure-Python deps that work on Chaquopy
+pydantic>=1.10,<2
+python-dotenv>=1.0
+httpx>=0.27
+httpcore>=1.0
+aiofiles>=23.0
+websockets>=12.0
+certifi>=2024.7.4
+urllib3>=2.6.3
+idna>=3.7
+pyyaml>=6.0
+anyio>=4.0
+sniffio>=1.0
