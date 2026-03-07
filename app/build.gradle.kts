@@ -13,8 +13,8 @@ android {
         applicationId = "com.omegcrash.familiar"
         minSdk = 26
         targetSdk = 35
-        versionCode = 42
-        versionName = "1.4.33"
+        versionCode = 43
+        versionName = "1.4.34"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
