@@ -1,6 +1,6 @@
 # Familiar Android — GrapheneOS Mobile App
 
-- **Package**: `com.omegcrash.familiar` v1.4.22 (versionCode 31)
+- **Package**: `com.omegcrash.familiar` v1.4.37 (versionCode 46)
 - **Language**: Kotlin + Jetpack Compose
 - **Min SDK**: 26 | **Target SDK**: 35 | **Compile SDK**: 35
 - **Java**: 17
@@ -53,7 +53,7 @@ build.gradle.kts            # App-level build config
 
 - **Architecture**: Compose UI -> OkHttp -> localhost:5000 -> Flask dashboard -> Agent
 - **ABI filters**: arm64-v8a, x86_64 only
-- **Python dep**: `familiar-agent>=1.14.43` (installed via Chaquopy pip)
+- **Python dep**: `familiar-agent>=1.15.6` (installed via Chaquopy pip)
 - **Compose BOM**: 2024.12.01
 - **Kotlin**: 2.1.0, AGP 8.7.3
 - **Distribution**: GitHub Releases (no Google Play)
